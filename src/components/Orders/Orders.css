@@ -1,0 +1,14 @@
+.Orders{
+    text-align: center;
+    width: 80%;
+    margin: 5px auto;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid rgb(95, 29, 29);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+table,td {
+    border: 5px solid #946109;
+    margin: 20px auto;
+  }
