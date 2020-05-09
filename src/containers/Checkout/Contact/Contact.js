@@ -4,6 +4,10 @@ import Button from '../../../components/Button/Button';
 import axios from '../../../axios-order';
 import Spinnner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
+import {connect} from 'react-redux';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actionCreator from '../../../store/action/index'
+
 
 
 class Contact extends Component {
@@ -13,7 +17,6 @@ class Contact extends Component {
         super()
 
         this.state = {
-            loading: false,
             orderForm: null,
             isFormValid:false
         }
@@ -58,7 +61,8 @@ class Contact extends Component {
     }
     orderHandler = (event) => {
         event.preventDefault();
-        this.setState({ loading: true })
+        // this.setState({ loading: true })
+        this.props.onOrderClick()
         let isValid=false;
         for(let key in this.state.orderForm){
             if(!this.state.orderForm[key].valid){
@@ -79,16 +83,16 @@ class Contact extends Component {
                 totalPrice: this.props.price,
                 order:orderObject
             }
-            axios.post('/orders.json', order).then(res => {
-                this.setState({ loading: false });
-                this.props.history.push('/')
-            }).catch(err => {
-                console.log("from catch")
-                this.setState({ loading: false });
-            })
+            // axios.post('/orders.json', order).then(res => {
+            //     this.setState({ loading: false });
+            //     this.props.history.push('/')
+            // }).catch(err => {
+            //     console.log("from catch")
+            //     this.setState({ loading: false });
+            // })
+            this.props.onOrderStart(order)
         }else{
             alert("field is required")
-            this.setState({ loading: false });
         }
        
     }
@@ -163,7 +167,7 @@ class Contact extends Component {
             clicked={this.orderHandler} 
             disabled={!this.state.isFormValid}>Confirm Order</Button>
         </form>);
-        if (this.state.loading) {
+        if (this.props.loading) {
             output = (<Spinnner />);
         }
         return (
@@ -175,4 +179,20 @@ class Contact extends Component {
     }
 }
 
-export default Contact;
+const mapStateToProps=state=>{
+    return{
+        ingredients:state.burger.ingredients,
+        price:state.burger.totalPrice,
+        loading:state.order.loading,
+        error:state.order.error
+    }
+}
+
+const mapDispatchToProps=dispatch=>{
+    return{
+        onOrderStart:(orderData)=>dispatch(actionCreator.purchaseBurgerStart(orderData)),
+        onOrderClick:()=>dispatch(actionCreator.clickOrder())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(Contact,axios));
