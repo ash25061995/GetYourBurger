@@ -1,4 +1,5 @@
 import * as actionType from '../action/actionTypes';
+import {updateObject} from '../utility';
 
 
 const initialState={
@@ -13,40 +14,47 @@ const ingredientsPrice={
     salad:25,
     cheese:10
 }
+
+const addIngredient=(state,actionIng)=>{
+    return{
+        ingredients:{
+            ...state.ingredients,
+            [actionIng]:state.ingredients[actionIng]+1
+            
+        },
+        totalPrice:state.totalPrice+ingredientsPrice[actionIng]
+    }
+}
+
+const removeIngredient=(state,actionIng)=>{
+    return{
+        ingredients:{
+            ...state.ingredients,
+            [actionIng]:state.ingredients[actionIng]-1
+            
+        },
+        totalPrice:state.totalPrice-ingredientsPrice[actionIng]
+    }
+}
+
 const reducer=(state=initialState,action)=>{
 
     switch(action.type){
         case(actionType.ADD_INGREDIENT):
-            return{
-                ...state,
-                ingredients:{
-                    ...state.ingredients,
-                    [action.ingredientName]:state.ingredients[action.ingredientName]+1
-                    
-                },
-                totalPrice:state.totalPrice+ingredientsPrice[action.ingredientName]
-            }
+            const add_ingName=addIngredient(state,action.ingredientName)
+            return updateObject(state,add_ingName)
+        
         case(actionType.REMOVE_INGREDIENT):
-            return{
-                ...state,
-                ingredients:{
-                    ...state.ingredients,
-                    [action.ingredientName]:state.ingredients[action.ingredientName]-1
-                },
-                totalPrice:state.totalPrice-ingredientsPrice[action.ingredientName]
-            }
+            const remove_ingName=removeIngredient(state,action.ingredientName)
+            return updateObject(state,remove_ingName)
+    
         case(actionType.FAILED_INGREDIENTS):
-            return{
-                ...state,
-                noerror:false
-            }
+            return updateObject(state,{noerror:false})
+          
         case(actionType.SET_INGREDIENTS):
             const setIngredient=Object.assign({},action.ingredients)
-            return{
-                ...state,
-                ingredients:setIngredient,
-                noerror:true
-            }
+            return updateObject(state,{ingredients:setIngredient,noerror:true,totalPrice:25})
+          
         default:
             return state
     }

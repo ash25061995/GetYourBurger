@@ -8,7 +8,7 @@ import axios from '../../../src/axios-order';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
-import * as actionCreator from '../../store/action/burgerBuilder'
+import * as actionCreator from '../../store/action/index'
 
 
 
@@ -79,6 +79,7 @@ class BurgerBuilder extends Component {
     }
     purchaseContinueHandler = () => {
         this.props.history.push('/checkout')
+        this.props.onPurchaseInit()
     }
     render() {
         const disabledInfo = {
@@ -137,7 +138,8 @@ const mapDispatchToProps=dispatch=>{
     return{
         onAddIngredient:(type)=>dispatch(actionCreator.addIngredient(type)),
         onRemoveIngredient:(type)=>dispatch(actionCreator.removeIngredient(type)),
-        onInitIngredients:()=>dispatch(actionCreator.initIngredients())
+        onInitIngredients:()=>dispatch(actionCreator.initIngredients()),
+        onPurchaseInit:()=>dispatch(actionCreator.purschaseInit())
     }
 }
 
