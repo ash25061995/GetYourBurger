@@ -61,7 +61,6 @@ class Contact extends Component {
     }
     orderHandler = (event) => {
         event.preventDefault();
-        // this.setState({ loading: true })
         this.props.onOrderClick()
         let isValid=false;
         for(let key in this.state.orderForm){
@@ -83,13 +82,6 @@ class Contact extends Component {
                 totalPrice: this.props.price,
                 order:orderObject
             }
-            // axios.post('/orders.json', order).then(res => {
-            //     this.setState({ loading: false });
-            //     this.props.history.push('/')
-            // }).catch(err => {
-            //     console.log("from catch")
-            //     this.setState({ loading: false });
-            // })
             this.props.onOrderStart(order)
         }else{
             alert("field is required")

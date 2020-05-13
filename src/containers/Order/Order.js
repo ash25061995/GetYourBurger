@@ -11,6 +11,7 @@ class Order extends Component {
  
     componentDidMount(){
        this.props.onFetchOrders()
+    //    console.log("props ",this.props.orders[0].id)
     }
   
     render() {
@@ -20,6 +21,7 @@ class Order extends Component {
                 {spinner}
                 {
                 this.props.orders.map(order=>{
+                    console.log(order)
                     return  (<Orders ingredients={order.ingredients} 
                         price={order.totalPrice} 
                         key={order.id} 
@@ -27,7 +29,9 @@ class Order extends Component {
                         email={order.order.email}
                         street={order.order.street}
                         country={order.order.country}
-                        zip={order.order.zipcode}/>)
+                        zip={order.order.zipcode}
+                        delivery={order.order.deliveryMethod}
+                        />)
                 })
                
             }

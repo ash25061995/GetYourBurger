@@ -37,12 +37,20 @@ const Orders = props => {
                         </td>
                         <td>
                             {
-                                Object.keys(props.ingredients).map(ig => {
+                                Object.keys(props.ingredients).map((ig) => {
                                     return (
-                                        <strong><li style={ingredientStyle}>{ig}({props.ingredients[ig]})</li></strong>
+                                        <strong key={ig}><li  style={ingredientStyle}>{ig}({props.ingredients[ig]})</li></strong>
                                     );
                                 })
                             }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Delivery Method: </p>
+                        </td>
+                        <td>
+                            <p><strong>{props.delivery}</strong></p>
                         </td>
                     </tr>
                     <tr>

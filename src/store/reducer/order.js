@@ -14,7 +14,7 @@ const reducer=(state=initialState,action)=>{
             return updateObject(state,{loading:true})
 
         case actionType.FETCH_ORDER_SUCCESS:
-            return updateObject(state,{orders:state.orders.concat(action.orders),loading:false})
+            return updateObject(state,{orders:action.orders,loading:false})
     
         case actionType.FETCH_ORDER_FAILED:
             return updateObject(state,{loading:false})

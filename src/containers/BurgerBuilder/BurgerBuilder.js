@@ -15,10 +15,8 @@ import * as actionCreator from '../../store/action/index'
 class BurgerBuilder extends Component {
     state = {
         purchasing: false,
-        loading: false,
     }
     componentDidMount=()=>{
-        console.log(this.props)
         this.props.onInitIngredients()
       
     }
@@ -29,7 +27,6 @@ class BurgerBuilder extends Component {
             return a + b;
         }, 0);
 
-        // this.setState({ purchasable: sum > 0 })
         if(sum>0){
             return true
         }else{
@@ -37,42 +34,8 @@ class BurgerBuilder extends Component {
         }
 
     }
-
-    // lessClickHandler = (type) => {
-    //     let oldCount = this.state.ingredients[type];
-    //     if (oldCount <= 0) {
-    //         return;
-    //     }
-    //     let newCount = oldCount - 1;
-    //     let updatedIngredients = {
-    //         ...this.state.ingredients
-    //     }
-    //     updatedIngredients[type] = newCount;
-    //     const oldPrice = this.state.totalPrice;
-    //     const newPrice = oldPrice - ingredientsPrice[type];
-    //     this.setState({ ingredients: updatedIngredients, totalPrice: newPrice })
-    //     this.purchaseStateUpdate(updatedIngredients)
-    //     setTimeout(() => {
-    //         console.log(this.state.totalPrice)
-    //     }, 0);
-    // }
-    // moreClickHandler = (type) => {
-    //     const oldCount = this.state.ingredients[type];
-    //     const newCount = oldCount + 1;
-    //     const updatedIngredients = {
-    //         ...this.state.ingredients
-    //     }
-    //     updatedIngredients[type] = newCount;
-    //     const oldPrice = this.state.totalPrice;
-    //     const newPrice = oldPrice + ingredientsPrice[type];
-    //     this.setState({ ingredients: updatedIngredients, totalPrice: newPrice })
-    //     this.purchaseStateUpdate(updatedIngredients)
-
-
-    // }
     purchaseHandler = () => {
         this.setState({ purchasing: true });
-        // this.setState({noerror:true})
     }
     backDropHandler = () => {
         this.setState({ purchasing: false })
